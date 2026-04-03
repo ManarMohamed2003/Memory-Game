@@ -13,7 +13,6 @@ interface Prepare {
     card2Selected?: Card | undefined
     selectedIndex1?: number | undefined
     selectedIndex2?: number | undefined
-    progress: number
     fulltrack: HTMLAudioElement
     flipAudio: HTMLAudioElement
     goodAudio: HTMLAudioElement
@@ -23,7 +22,6 @@ interface Prepare {
 
 let prepare: Prepare = {
     cards: [],
-    progress: 0,
     fulltrack: new Audio("./assets/audio/fulltrack.mp3"),
     flipAudio: new Audio("./assets/audio/flip.mp3"),
     goodAudio: new Audio("./assets/audio/good.mp3"),
@@ -40,10 +38,8 @@ let cardsHTMLContent = ''
 let getRandomInt = (min: number, max: number) => {
     let result: number = 0
     let exists = true
-    min = Math.ceil(min)
-    max = Math.floor(max)
     while (exists) {
-        result = Math.floor(Math.random() * (max - min + 1)) + min
+        result = Math.floor(Math.random() * (max - min + 1))
         if (!tempNumbers.find(no => no === result.toString())) {
             exists = false
 
@@ -132,7 +128,6 @@ let changeProgress = () => {
     let progressElement = document.getElementById('progressing')
     if (progressElement) {
         progressElement.style.width = `${progress}%`
-        progressElement.innerText = `${progress}%`
     }
 }
 

@@ -1,7 +1,6 @@
 "use strict";
 let prepare = {
     cards: [],
-    progress: 0,
     fulltrack: new Audio("./assets/audio/fulltrack.mp3"),
     flipAudio: new Audio("./assets/audio/flip.mp3"),
     goodAudio: new Audio("./assets/audio/good.mp3"),
@@ -10,15 +9,13 @@ let prepare = {
 };
 prepare.fulltrack.loop = true;
 let numOfCards = 20;
-let tempNumbers = []; //finished cards
+let tempNumbers = [];
 let cardsHTMLContent = '';
 let getRandomInt = (min, max) => {
     let result = 0;
     let exists = true;
-    min = Math.ceil(min);
-    max = Math.floor(max);
     while (exists) {
-        result = Math.floor(Math.random() * (max - min + 1)) + min;
+        result = Math.floor(Math.random() * (max - min + 1));
         if (!tempNumbers.find(no => no === result.toString())) {
             exists = false;
             tempNumbers.push(result.toString());
@@ -95,7 +92,6 @@ let changeProgress = () => {
     let progressElement = document.getElementById('progressing');
     if (progressElement) {
         progressElement.style.width = `${progress}%`;
-        progressElement.innerText = `${progress}%`;
     }
 };
 let checkFinish = () => {
@@ -107,7 +103,7 @@ let checkFinish = () => {
     }
 };
 let stopAudio = (audio) => {
-    if (audio && !audio.paused) {
+    if (audio && audio.played) {
         audio.pause();
         audio.currentTime = 0;
     }
